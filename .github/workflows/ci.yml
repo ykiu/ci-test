@@ -8,6 +8,8 @@ jobs:
       - run: git remote
       - run: git fetch origin ${{ github.base_ref }} --depth=1
       - id: diff
-        run: echo "::set-output name=changed::$(git diff --name-only origin/${{ github.base_ref }} origin/${{ github.head_ref }} --relative ./foo/ | wc -l)"
+        run: echo "::set-output name=changed::$(git diff --name-only origin/${{ github.base_ref }} HEAD --relative ./foo/ | wc -l)"
       - if: ${{ steps.diff.outputs.changed != '0' }}
         run: echo "${{steps.diff.outputs.changed}} change(s) detected"
+
+# Trigger workflow run
